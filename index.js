@@ -1,7 +1,28 @@
 const http = require('http')
 
+let reqCounter = 0;
+
 const server = http.createServer((request, response)=> {
-    response.write("Igor's server.")
+    if (request.url !== '/favicon.ico'){
+        reqCounter++;
+    }
+
+    switch (request.url){
+        case '/':
+            response.write('Home page.\n')
+            break
+        case '/students':
+            response.write('Student\'s page.\n')
+            break;
+        case 'courses':
+            response.write('Course\'s page\n')
+            break;
+        default:
+            response.write('404 NOT FOUND\b')
+    }
+
+
+    response.write("Igor's server. \nRequests number:" + reqCounter)
     response.end()
 })
 
